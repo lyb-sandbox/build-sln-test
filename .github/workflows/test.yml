@@ -23,6 +23,11 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal -r test-result --logger "trx;logfilename=testResults.xml"
+    - name: Publish Test Results On GitHub
+      uses: EnricoMi/publish-unit-test-result-action@v1.37
+      with:
+        files: "test-results/*.xml"
+
     - name: Publish
       run: dotnet publish SimpleFeedReader/SimpleFeedReader.csproj -c Release -o website
     - name: Display structure of downloaded files
