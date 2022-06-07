@@ -19,10 +19,12 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Add JUNIT package
+      run: dotnet add package JUnitTestLogger --version 1.1.0
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal -r test-result --logger "trx;logfilename=testResults.xml"
+      run: dotnet test --no-build --verbosity normal -r test-result --logger "junit;logfilename=testResults.xml"
     - name: Publish Test Results On GitHub
       uses: EnricoMi/publish-unit-test-result-action@v1.37
       with:
